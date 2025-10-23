@@ -1,0 +1,19 @@
+{
+  "name": "yt-automatic-music-videos",
+  "version": "1.0.0",
+  "main": "src/server.ts",
+  "author": "Rodrigo Zandonadi <rodzandonadi@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "nodemon": "^3.1.0"
+  }
+}
