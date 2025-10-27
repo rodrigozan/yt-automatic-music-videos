@@ -29,11 +29,14 @@ export async function uploadToYouTube(videoPath: string, title: string, descript
         title,
         description,
         tags,
-        categoryId: "10" 
+        categoryId: "10" ,
+        defaultLanguage: "en",
+        defaultAudioLanguage: "en",
       },
       status: {
         privacyStatus: "private",
         publishAt: publishAtString,
+        madeForKids: false,
         selfDeclaredMadeForKids: false
       }
     },
