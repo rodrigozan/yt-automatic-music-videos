@@ -3,7 +3,7 @@ import { google } from "googleapis";
 import { createCanvas, loadImage, registerFont } from "canvas";
 import path from "path";
 
-const fontDir = path.resolve(__dirname, "../assets/fonts");
+const fontDir = path.resolve(__dirname, "../../assets/fonts");
 
 try {
   registerFont(path.join(fontDir, "Montserrat-Bold.ttf"), {

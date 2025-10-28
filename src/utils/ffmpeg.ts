@@ -69,6 +69,8 @@ const outputFile = path.join(OUTPUT_DIR, outputFileName);
     `"${audioPath}"`,
     "-vf",
     "scale=1920:1080,format=yuv420p",
+    "-metadata", "artist=Grace and Marc Holloway",
+    "-metadata", "album=R&B Gospel Lofi Soul Collection",
     "-c:v",
     "libx264",
     "-tune",
