@@ -2,37 +2,34 @@ import fs from "fs";
 import path from "path";
 import { spawn } from "child_process";
 
-/**
- * Cria um vídeo a partir da imagem e do áudio do dia informado.
- * @param day - Nome do dia (ex: "segunda", "terca", etc.)
- * @returns Caminho do arquivo de vídeo gerado
- */
+import { config } from "dotenv";
+
+config();
+
 export async function createVideoFromAssets(day: string): Promise<string> {
   const BASE_DIR = path.resolve("./assets");
   const AUDIO_BASE = path.join(BASE_DIR, "audio");
   const IMAGE_DIR = path.join(BASE_DIR, "image");
   const OUTPUT_DIR = path.join(BASE_DIR, "videos");
 
-  // Caminhos base
   const audioDir = path.join(AUDIO_BASE, day);
   const imagePath = path.join(IMAGE_DIR, `${day}.png`);
 
-  // pega o primeiro arquivo de áudio da pasta
-const musicFiles = fs.readdirSync(audioDir).filter(f =>
-  f.endsWith(".mp3") || f.endsWith(".wav") || f.endsWith(".m4a")
-);
+  const musicFiles = fs
+    .readdirSync(audioDir)
+    .filter(
+      (f) => f.endsWith(".mp3") || f.endsWith(".wav") || f.endsWith(".m4a")
+    );
 
-if (musicFiles.length === 0) {
-  throw new Error(`Nenhum arquivo de áudio encontrado em ${audioDir}`);
-}
+  if (musicFiles.length === 0) {
+    throw new Error(`Nenhum arquivo de áudio encontrado em ${audioDir}`);
+  }
 
-const audioFile = musicFiles[0]!;
-const songName = path.parse(audioFile).name; // 👈 agora sim o nome da música
-const outputFileName = `${songName}.mp4`;
-const outputFile = path.join(OUTPUT_DIR, outputFileName);
+  const audioFile = musicFiles[0]!;
+  const songName = path.parse(audioFile).name;
+  const outputFileName = `${songName}.mp4`;
+  const outputFile = path.join(OUTPUT_DIR, outputFileName);
 
-
-  // 🎵 Validação do áudio
   if (!fs.existsSync(audioDir)) {
     throw new Error(`❌ Pasta de áudio não encontrada: ${audioDir}`);
   }
@@ -51,15 +48,12 @@ const outputFile = path.join(OUTPUT_DIR, outputFileName);
 
   const audioPath = path.join(audioDir, files);
 
-  // 🖼️ Validação da imagem
   if (!fs.existsSync(imagePath)) {
     throw new Error(`❌ Imagem não encontrada: ${imagePath}`);
   }
 
-  // 🎬 Garante a pasta de saída
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  // 🧠 Monta o comando FFmpeg
   const args = [
     "-loop",
     "1",
@@ -69,8 +63,10 @@ const outputFile = path.join(OUTPUT_DIR, outputFileName);
     `"${audioPath}"`,
     "-vf",
     "scale=1920:1080,format=yuv420p",
-    "-metadata", "artist=Grace and Marc Holloway",
-    "-metadata", "album=R&B Gospel Lofi Soul Collection",
+    "-metadata",
+    'artist="Grace and Marc Holloway"',
+    "-metadata",
+    'album="R&B Gospel Lofi Soul Collection"',
     "-c:v",
     "libx264",
     "-tune",

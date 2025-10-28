@@ -1,4 +1,7 @@
 import { google } from "googleapis";
+import { config } from "dotenv";
+
+config();
 
 export class YouTubeService {
   private oauth2Client;
