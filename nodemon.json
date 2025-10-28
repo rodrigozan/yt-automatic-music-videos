@@ -2,5 +2,13 @@
   "watch": ["src"],
   "ext": "ts",
   "ignore": ["dist"],
+  "ignore": [
+    "node_modules",
+    "assets",
+    "image",
+    "output",
+    "videos",
+    "docs"
+  ],
   "exec": "ts-node ./src/server.ts"
 }
